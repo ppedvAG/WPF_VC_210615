@@ -1,0 +1,55 @@
+﻿<Window x:Class="Personendatenbank.PersonenDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Personendatenbank"
+        mc:Ignorable="d"
+        Title="Neue Person" 
+        Height="384" Width="285" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" Topmost="True"
+        FontSize="14.0">
+
+    <Window.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="LightYellow" Offset="0"/>
+            <GradientStop Color="Orange" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <StackPanel Margin="10">
+
+        <TextBlock Text="Vorname:"/>
+        <TextBox x:Name="Tbx_Vorname"/>
+
+        <TextBlock Text="Nachname:"/>
+        <TextBox x:Name="Tbx_Nachname"/>
+
+        <TextBlock Text="Geburtsdatum:"/>
+        <DatePicker x:Name="Dpr_Geburtsdatum"/>
+
+        <TextBlock Text="Verheiratet:"/>
+        <CheckBox x:Name="Cbx_Verheiratet"/>
+
+        <TextBlock Text="Lieblingsfarbe:"/>
+        <ComboBox x:Name="Cbb_Lieblingsfarbe">
+            <ComboBoxItem Content="Grün" Foreground="Green"/>
+            <ComboBoxItem Content="Blau" Foreground="Blue"/>
+            <ComboBoxItem Content="Rot" Foreground="Red"/>
+            <ComboBoxItem Content="Gelb" Foreground="Yellow"/>
+        </ComboBox>
+
+        <TextBlock Text="Geschlecht:"/>
+        <RadioButton Content="M"
+                         GroupName="Rbg_Gender"/>
+        <RadioButton Content="W"
+                         GroupName="Rbg_Gender"/>
+        <RadioButton Content="D"
+                         GroupName="Rbg_Gender"/>
+
+        <Button x:Name="Btn_Ok"
+                    Content="OK"/>
+        <Button x:Name="Btn_Abbruch"
+                    Content="Abbrechen"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,12 @@
+﻿<!--vgl. auch CodeBehind-->
+<Application x:Class="HelloWPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:HelloWPF"
+             StartupUri="MainWindow.xaml">
+    <!--Die StartupUri beinhaltet den Pfad der Xaml-Datei, welche das Fenster beinhaltet, welches zuerst geöffnet
+    werden soll.-->
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
