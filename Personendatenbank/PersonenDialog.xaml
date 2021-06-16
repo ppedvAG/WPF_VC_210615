@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Personendatenbank"
         mc:Ignorable="d"
         Title="Neue Person" 
-        Height="384" Width="285" ResizeMode="NoResize" 
+        Height="275" Width="285"  ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" Topmost="True"
         FontSize="14.0">
 
@@ -17,39 +17,96 @@
         </LinearGradientBrush>
     </Window.Background>
 
-    <StackPanel Margin="10">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <TextBlock Text="Vorname:"/>
-        <TextBox x:Name="Tbx_Vorname"/>
+        <TextBlock Text="Vorname:"
+                   VerticalAlignment="Center"
+                   Margin="0,0,5,0"/>
+        <TextBlock Text="Nachname:" 
+                   Grid.Row="1"
+                   VerticalAlignment="Center"
+                   Margin="0,0,5,0"/>
+        <TextBlock Text="Geburtsdatum:" 
+                   Grid.Row="2"
+                   VerticalAlignment="Center"
+                   Margin="0,0,5,0"/>
+        <TextBlock Text="Verheiratet:" 
+                   Grid.Row="3"
+                   VerticalAlignment="Center"
+                   Margin="0,0,5,0"/>
+        <TextBlock Text="Lieblingsfarbe:" 
+                   Grid.Row="4"
+                   VerticalAlignment="Center"
+                   Margin="0,0,5,0"/>
+        <TextBlock Text="Geschlecht:" 
+                   Grid.Row="5"
+                   VerticalAlignment="Top"
+                   Margin="0,0,5,0"/>
 
-        <TextBlock Text="Nachname:"/>
-        <TextBox x:Name="Tbx_Nachname"/>
+        <TextBox x:Name="Tbx_Vorname"
+                 Grid.Column="1"
+                 Margin="2"/>
 
-        <TextBlock Text="Geburtsdatum:"/>
-        <DatePicker x:Name="Dpr_Geburtsdatum"/>
+        <TextBox x:Name="Tbx_Nachname"
+                 Grid.Column="1" Grid.Row="1"
+                 Margin="2"/>
 
-        <TextBlock Text="Verheiratet:"/>
-        <CheckBox x:Name="Cbx_Verheiratet"/>
+        <DatePicker x:Name="Dpr_Geburtsdatum"
+                    Grid.Column="1" Grid.Row="2"
+                    VerticalAlignment="Center"
+                    Margin="2"/>
 
-        <TextBlock Text="Lieblingsfarbe:"/>
-        <ComboBox x:Name="Cbb_Lieblingsfarbe">
+        <CheckBox x:Name="Cbx_Verheiratet"
+                  Grid.Column="1" Grid.Row="3"
+                  VerticalAlignment="Center"
+                  Margin="2"/>
+
+        <ComboBox x:Name="Cbb_Lieblingsfarbe"
+                  Grid.Column="1" Grid.Row="4"
+                  VerticalAlignment="Center"
+                  Margin="2">
             <ComboBoxItem Content="Grün" Foreground="Green"/>
             <ComboBoxItem Content="Blau" Foreground="Blue"/>
             <ComboBoxItem Content="Rot" Foreground="Red"/>
             <ComboBoxItem Content="Gelb" Foreground="Yellow"/>
         </ComboBox>
 
-        <TextBlock Text="Geschlecht:"/>
-        <RadioButton Content="M"
-                         GroupName="Rbg_Gender"/>
-        <RadioButton Content="W"
-                         GroupName="Rbg_Gender"/>
-        <RadioButton Content="D"
-                         GroupName="Rbg_Gender"/>
+        <StackPanel Margin="2"
+                    Grid.Column="1" Grid.Row="5">
+            <RadioButton Content="M"
+                         GroupName="Rbg_Gender"
+                         VerticalContentAlignment="Center"/>
+            <RadioButton Content="W"
+                         GroupName="Rbg_Gender"
+                         VerticalContentAlignment="Center"/>
+            <RadioButton Content="D"
+                         GroupName="Rbg_Gender"
+                         VerticalContentAlignment="Center"/>
+        </StackPanel>
 
-        <Button x:Name="Btn_Ok"
-                    Content="OK"/>
-        <Button x:Name="Btn_Abbruch"
-                    Content="Abbrechen"/>
-    </StackPanel>
+        <WrapPanel Grid.Row="6" Grid.ColumnSpan="2"
+                   HorizontalAlignment="Right" Margin="0,5">
+            <Button x:Name="Btn_Ok"
+                    Content="OK"
+                    Width="100"
+                    Margin="5,0,0,0"/>
+            <Button x:Name="Btn_Abbruch"
+                    Content="Abbrechen"
+                    Width="100"
+                    Margin="5,0,0,0"/>
+        </WrapPanel>
+    </Grid>
 </Window>
