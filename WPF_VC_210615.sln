@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modul01_HelloWPF", "HelloWPF\Modul01_HelloWPF.csproj", "{AAC01B77-617B-44EF-A286-D3D56427D97A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modul01_Grundlagen", "HelloWPF\Modul01_Grundlagen.csproj", "{AAC01B77-617B-44EF-A286-D3D56427D97A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modul02_Controls", "Controls\Modul02_Controls.csproj", "{577517DF-00AF-475A-A697-60CD2AFD94CB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Personendatenbank", "Personendatenbank\Personendatenbank.csproj", "{B070D481-1270-4FC5-8F2F-471C1588F2DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul03_Container", "Container\Modul03_Container.csproj", "{4D5DFB9C-CD9F-4310-B4AB-933F455CB397}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul04_EventHandling", "EventHandling\Modul04_EventHandling.csproj", "{2C3DA0D1-F765-445E-95D6-7D61EBCDBBEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4D5DFB9C-CD9F-4310-B4AB-933F455CB397}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D5DFB9C-CD9F-4310-B4AB-933F455CB397}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D5DFB9C-CD9F-4310-B4AB-933F455CB397}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C3DA0D1-F765-445E-95D6-7D61EBCDBBEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C3DA0D1-F765-445E-95D6-7D61EBCDBBEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C3DA0D1-F765-445E-95D6-7D61EBCDBBEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C3DA0D1-F765-445E-95D6-7D61EBCDBBEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
