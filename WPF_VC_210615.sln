@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modul02_Controls", "Control
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Personendatenbank", "Personendatenbank\Personendatenbank.csproj", "{B070D481-1270-4FC5-8F2F-471C1588F2DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul03_Container", "Container\Modul03_Container.csproj", "{4D5DFB9C-CD9F-4310-B4AB-933F455CB397}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modul03_Container", "Container\Modul03_Container.csproj", "{4D5DFB9C-CD9F-4310-B4AB-933F455CB397}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul04_EventHandling", "EventHandling\Modul04_EventHandling.csproj", "{2C3DA0D1-F765-445E-95D6-7D61EBCDBBEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modul04_EventHandling", "EventHandling\Modul04_EventHandling.csproj", "{2C3DA0D1-F765-445E-95D6-7D61EBCDBBEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyBinding", "PropertyBinding\PropertyBinding.csproj", "{B261733F-8B9A-42C2-93DF-45EA6DBB7597}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{2C3DA0D1-F765-445E-95D6-7D61EBCDBBEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C3DA0D1-F765-445E-95D6-7D61EBCDBBEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C3DA0D1-F765-445E-95D6-7D61EBCDBBEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B261733F-8B9A-42C2-93DF-45EA6DBB7597}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B261733F-8B9A-42C2-93DF-45EA6DBB7597}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B261733F-8B9A-42C2-93DF-45EA6DBB7597}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B261733F-8B9A-42C2-93DF-45EA6DBB7597}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

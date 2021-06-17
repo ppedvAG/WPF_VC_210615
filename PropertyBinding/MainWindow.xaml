@@ -1,0 +1,60 @@
+﻿<Window x:Class="PropertyBinding.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PropertyBinding"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="406" Width="451">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            
+            <Slider x:Name="Sdr_Eins"
+                Width="300"
+                Value="5"/>
+            
+            <TextBox Width="80">
+                <TextBox.Text>
+                    <Binding ElementName="Sdr_Eins" Path="Value" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"/>
+                </TextBox.Text>
+            </TextBox>
+            
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Slider x:Name="Sdr_Zwei"
+                    Width="300"
+                    Value="5"/>
+            <TextBox x:Name="Tbx_Zwei" Width="80" Text="{Binding ElementName=Sdr_Zwei, Path=Value, UpdateSourceTrigger=Explicit}"/>
+            <Button Content="Aktualisieren" Click="Button_Click"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <CheckBox x:Name="Cbx_Visibility" Content="IsVisible?" Margin="5"/>
+            <TextBlock Text="HALLO" Margin="5">
+                <TextBlock.Visibility>
+                    <Binding ElementName="Cbx_Visibility" Path="IsChecked">
+                        <Binding.Converter>
+                            <BooleanToVisibilityConverter/>
+                        </Binding.Converter>
+                    </Binding>
+                </TextBlock.Visibility>
+            </TextBlock>
+        </StackPanel>
+
+        <StackPanel>
+
+            <Slider x:Name="Sdr_Rot" Minimum="0" Maximum="255" Value="0"/>
+            <Rectangle Width="100" Height="100">
+                <Rectangle.Fill>
+                    <Binding ElementName="Sdr_Rot" Path="Value">
+                        <Binding.Converter>
+                            <local:DoubleToBrushConverter/>
+                        </Binding.Converter>
+                    </Binding>
+                </Rectangle.Fill>
+            </Rectangle>
+
+        </StackPanel>
+    </StackPanel>
+</Window>
