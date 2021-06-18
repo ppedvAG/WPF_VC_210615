@@ -1,0 +1,35 @@
+﻿<Application x:Class="ResourcesStyles.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ResourcesStyles"
+             StartupUri="MainWindow.xaml">
+
+    <!--Applikationsweite (globale) Ressourcen-->
+    <Application.Resources>
+
+        <!--Die Einbindung von mehreren ResourceDictionaries erfolgt über die Property MergedDictionaries-->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--ResourceDictionaries sind XAML-Dateien, welche nur Ressourcen beinhalten-->
+                <ResourceDictionary Source="Dictionary1.xaml"/>
+                <!--Themes geben den Controls ein einheitliches neues Aussehen-->
+                <ResourceDictionary Source="/PresentationFramework.Luna;component/themes/Luna.Homestead.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--Zusätzliche Ressource-->
+            <SolidColorBrush x:Key="Scr_NochEinBrush" Color="HotPink"/>
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <!--Integrierte Themes-->
+    <!--
+    <ResourceDictionary Source="/PresentationFramework.Aero;component/themes/Aero.NormalColor.xaml"/>
+    <ResourceDictionary Source="/PresentationFramework.Aero2;component/themes/Aero2.NormalColor.xaml"/>
+    <ResourceDictionary Source="/PresentationFramework.Aerolite;component/themes/Aerolite.NormalColor.xaml"/>
+    <ResourceDictionary Source="/PresentationFramework.Luna;component/themes/Luna.NormalColor.xaml"/>
+    <ResourceDictionary Source="/PresentationFramework.Luna;component/themes/Luna.Metallic.xaml"/>
+    <ResourceDictionary Source="/PresentationFramework.Luna;component/themes/Luna.Homestead.xaml"/>
+    <ResourceDictionary Source="/PresentationFramework.Royale;component/themes/Royale.NormalColor.xaml" />
+    <ResourceDictionary Source="/PresentationFramework.Classic;component/themes/Classic.xaml" />
+    -->
+
+</Application>

@@ -1,0 +1,69 @@
+﻿<Window x:Class="ResourcesStyles.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ResourcesStyles"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="347" Width="299">
+
+    <!--Über die Ressourcen von App/Window/Container können für die entsprechende Range Daten
+        zur Verfügung gestellt werden. Die Verbindung von Properties zu diesen Resourcen wird dann
+        über eine StaticResource-Bindung hergestellt. Alternativ kann eine DynamicRessource-Bindung 
+        erstellt werden, wodurch die gebundene Property auf Veränderungen an der Ressource durch 
+        den CodeBehind reagiert.-->
+    <Window.Resources>
+        <sys:Double x:Key="globalFontSize">25.0</sys:Double>
+    </Window.Resources>
+
+    <StackPanel x:Name="Spl_Main">
+        <StackPanel.Resources>
+            <SolidColorBrush Color="LightGreen" x:Key="Scb_LightGreen"/>
+        </StackPanel.Resources>
+
+        <!--Eine Anbindung an Ressourcen erfolgt entweder über eine StaticResource-Bindung, welche den Wert einmalig einholt-->
+        <!--oder über eine DynamicResource-Bindung, welche permanent nach Veränderungen sucht und diese übernimmt-->
+        <Button Content="{StaticResource StringAusDict}" 
+                Background="{StaticResource Scb_LightGreen}"
+                FontSize="{StaticResource globalFontSize}"
+                Click="Button_Click"/>
+        <!--Die x:Static-Bindung ist ebenfalls eine statische Ressourcen-Bindung, welche mächtiger ist, als die 'normale'.
+        Sie kann zum Beispiel (wie hier) für Bindungen an eine resX-Datei (in den Projekt-Properties) benutzt werden.-->
+        <Button Content="{x:Static local:Resource1.meinButtonString}" 
+                Background="{DynamicResource Scb_LightGreen}"/>
+
+        <!--Styles-->
+        <StackPanel x:Name="Spl_Styles">
+            <StackPanel.Resources>
+                <!--Mit Styles konnen Sammlungen Propertes einzelner Controls und Container
+                    gebündelt vordefiniert werden. Erhält ein Style einen Key, erhalten alle derartigen
+                    Elemente, welche den Style in ihrer Style-Property angeben, diesen Style. Wenn ein Style
+                    keinen Key hat, wird er zum Standartlayout derartiger Elemente in der gewählten
+                    Range. Lokale Property-Werte haben Vorang vor den Styles.-->
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="Yellow"/>
+                    <Setter Property="FontSize" Value="{StaticResource globalFontSize}"/>
+                </Style>
+                <Style TargetType="Button" x:Key="Sty_Btn_01">
+                    <Setter Property="Background" Value="Green"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Style>
+                <!--Mittels der BaseOn-Property kann ein Style alles Propeties eines anderen Styles erben.-->
+                <Style TargetType="Button" x:Key="Sty_Btn_02" BasedOn="{StaticResource Sty_Btn_01}">
+                    <Setter Property="FontFamily" Value="Arial"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Button Content="Btn1" FontSize="40"/>
+            <Button Content="Btn2" Style="{StaticResource Sty_Btn_01}"/>
+            <Button Content="Btn3" Style="{StaticResource Sty_Btn_02}"/>
+        </StackPanel>
+        
+        <!--Bsp-Button zur Theme-Darstellung (vgl. App.xaml)-->
+        <Button Content="Luna-Theme Button"/>
+        
+        <!--Mittels Frames können andere XAML-Dateien eingebunden werden-->
+        <Frame Source="ViewBoxTest.xaml"/>
+    </StackPanel>
+</Window>
