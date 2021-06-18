@@ -21,6 +21,10 @@
         </LinearGradientBrush>
     </Window.Background>
 
+    <Window.DataContext>
+        <local:Person/>
+    </Window.DataContext>
+
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -62,26 +66,31 @@
 
         <TextBox x:Name="Tbx_Vorname"
                  Grid.Column="1"
-                 Margin="2"/>
+                 Margin="2"
+                 Text="{Binding Vorname}"/>
 
         <TextBox x:Name="Tbx_Nachname"
                  Grid.Column="1" Grid.Row="1"
-                 Margin="2"/>
+                 Margin="2"
+                 Text="{Binding Nachname}"/>
 
         <DatePicker x:Name="Dpr_Geburtsdatum"
                     Grid.Column="1" Grid.Row="2"
                     VerticalAlignment="Center"
-                    Margin="2"/>
+                    Margin="2"
+                    SelectedDate="{Binding Geburtsdatum}"/>
 
         <CheckBox x:Name="Cbx_Verheiratet"
                   Grid.Column="1" Grid.Row="3"
                   VerticalAlignment="Center"
-                  Margin="2"/>
+                  Margin="2"
+                  IsChecked="{Binding Verheiratet}"/>
 
         <ComboBox x:Name="Cbb_Lieblingsfarbe"
                   Grid.Column="1" Grid.Row="4"
                   VerticalAlignment="Center"
-                  Margin="2">
+                  Margin="2"
+                  SelectedValue="{Binding Lieblingsfarbe}">
             <ComboBoxItem Content="Grün" Foreground="Green"/>
             <ComboBoxItem Content="Blau" Foreground="Blue"/>
             <ComboBoxItem Content="Rot" Foreground="Red"/>
@@ -92,13 +101,40 @@
                     Grid.Column="1" Grid.Row="5">
             <RadioButton Content="M"
                          GroupName="Rbg_Gender"
-                         VerticalContentAlignment="Center"/>
+                         VerticalContentAlignment="Center">
+                <RadioButton.IsChecked>
+                    <Binding Path="Geschlecht"
+                             ConverterParameter="{x:Static local:Gender.Männlich}">
+                        <Binding.Converter>
+                            <local:GenderToBoolConverter/>
+                        </Binding.Converter>
+                    </Binding>
+                </RadioButton.IsChecked>
+            </RadioButton>
             <RadioButton Content="W"
                          GroupName="Rbg_Gender"
-                         VerticalContentAlignment="Center"/>
+                         VerticalContentAlignment="Center">
+                <RadioButton.IsChecked>
+                    <Binding Path="Geschlecht"
+                             ConverterParameter="{x:Static local:Gender.Weiblich}">
+                        <Binding.Converter>
+                            <local:GenderToBoolConverter/>
+                        </Binding.Converter>
+                    </Binding>
+                </RadioButton.IsChecked>
+            </RadioButton>
             <RadioButton Content="D"
                          GroupName="Rbg_Gender"
-                         VerticalContentAlignment="Center"/>
+                         VerticalContentAlignment="Center">
+                <RadioButton.IsChecked>
+                    <Binding Path="Geschlecht"
+                             ConverterParameter="{x:Static local:Gender.Divers}">
+                        <Binding.Converter>
+                            <local:GenderToBoolConverter/>
+                        </Binding.Converter>
+                    </Binding>
+                </RadioButton.IsChecked>
+            </RadioButton>
         </StackPanel>
 
         <WrapPanel Grid.Row="6" Grid.ColumnSpan="2"
@@ -106,11 +142,15 @@
             <Button x:Name="Btn_Ok"
                     Content="OK"
                     Width="100"
-                    Margin="5,0,0,0"/>
+                    Margin="5,0,0,0"
+                    Click="Btn_Ok_Click"/>
             <Button x:Name="Btn_Abbruch"
                     Content="Abbrechen"
                     Width="100"
-                    Margin="5,0,0,0"/>
+                    Margin="5,0,0,0"
+                    Click="Btn_Abbruch_Click"/>
         </WrapPanel>
     </Grid>
 </Window>
+
+

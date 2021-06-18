@@ -33,5 +33,11 @@ namespace DataBinding
 
         //Durch das Interface geforderte Event
         public event PropertyChangedEventHandler PropertyChanged;
+
+        //Unter bestimmten Umständen (z.B. in einer Liste ohne DataTemplate) definiert die ToString()-Funktion das Aussehen der Objekte in der GUI
+        public override string ToString()
+        {
+            return $"{Vorname} {Nachname} ({Alter})";
+        }
     }
 }

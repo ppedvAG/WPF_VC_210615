@@ -26,5 +26,12 @@
 
         </StackPanel>
 
+        <!--ItemControls können an Listen angebunden werden, durch welche sie mit Objekten
+        befüllt werden-->
+        <ListBox x:Name="Lbx_Personen" Height="100"
+                 ItemsSource="{Binding Personenliste}"/>
+        <Button x:Name="Btn_Add" Content="Neu" Click="Btn_Add_Click"/>
+        <Button x:Name="Btn_Delete" Content="Löschen" Click="Btn_Delete_Click"/>
+
     </StackPanel>
 </Window>
