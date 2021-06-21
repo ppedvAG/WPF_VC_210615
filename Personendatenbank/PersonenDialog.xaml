@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Personendatenbank"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Neue Person" 
         Height="275" Width="285"  ResizeMode="NoResize" 
@@ -21,6 +22,19 @@
 
     <Window.Resources>
         <local:GenderToBoolConverter x:Key="gender2bool"/>
+
+        <ObjectDataProvider x:Key="Odp_Colors"
+                            MethodName="GetType"
+                            ObjectType="{x:Type sys:Type}">
+            <ObjectDataProvider.MethodParameters>
+                <sys:String>System.Windows.Media.Colors, PresentationCore, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</sys:String>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider x:Key="Odp_ColorsProperties"
+                            MethodName="GetProperties"
+                            ObjectInstance="{StaticResource Odp_Colors}"/>
+
     </Window.Resources>
 
     <Grid Margin="10">
@@ -70,11 +84,19 @@
                   Grid.Column="1" Grid.Row="4"
                   VerticalAlignment="Center"
                   Margin="2"
-                  SelectedValue="{Binding Lieblingsfarbe}">
-            <ComboBoxItem Content="Grün" Foreground="Green"/>
-            <ComboBoxItem Content="Blau" Foreground="Blue"/>
-            <ComboBoxItem Content="Rot" Foreground="Red"/>
-            <ComboBoxItem Content="Gelb" Foreground="Yellow"/>
+                  SelectedValue="{Binding Lieblingsfarbe}"
+                  SelectedValuePath="Name"
+                  ItemsSource="{Binding Source={StaticResource Odp_ColorsProperties}}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Border BorderBrush="Black" BorderThickness="1" Width="20" Height="20" Margin="5,0">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Name}"/>
+                        </Border>
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
 
         <StackPanel Margin="2"
