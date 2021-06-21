@@ -27,22 +27,38 @@ namespace Templates
         {
             InitializeComponent();
 
+            //Vorbereitung
             Personenliste = new ObservableCollection<Person>()
             {
-                new Person(){Vorname="Hannes", Nachname="Müller", Alter=56},
-                new Person(){Vorname="Anna", Nachname="Schmidt", Alter=24}
+                new Person(){Vorname="Otto", Nachname="Meier", Alter=55},
+                new Person(){Vorname="Jürgen", Nachname="Müller", Alter=78},
+                new Person(){Vorname="Maria", Nachname="Schmidt", Alter=24}
             };
 
             this.DataContext = this;
         }
 
-        private void Btn_Beispiel_Click(object sender, RoutedEventArgs e)
+        private void Btn_ControlTemplate_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Button funktioniert");
         }
 
-        private void Btn_Loeschen_Click(object sender, RoutedEventArgs e)
+        private void Btn_Neu_Click(object sender, RoutedEventArgs e)
         {
+            //Hinzufügen einer neuen Person
+            Personenliste.Add(new Person() { Vorname = "Sarah", Nachname = "Schmidt", Alter = 45 });
+        }
+
+        private void Btn_Loeschen_01_Click(object sender, RoutedEventArgs e)
+        {
+            //Löschen der in dem ListView angewählten Person
+            if (Lbx_Personen.SelectedItem is Person)
+                Personenliste.Remove(Lbx_Personen.SelectedItem as Person);
+        }
+
+        private void Btn_Loeschen_02_Click(object sender, RoutedEventArgs e)
+        {
+            //Löschen der Person, welche in dem Button-Tag liegt
             if ((sender as Button).Tag is Person)
                 Personenliste.Remove((sender as Button).Tag as Person);
         }

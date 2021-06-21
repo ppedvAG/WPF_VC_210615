@@ -35,6 +35,24 @@
                             MethodName="GetProperties"
                             ObjectInstance="{StaticResource Odp_Colors}"/>
 
+        <ControlTemplate x:Key="CtpError">
+            <StackPanel Orientation="Horizontal">
+                <Border BorderBrush="Red" BorderThickness="1" x:Name="BdrAep">
+                    <AdornedElementPlaceholder x:Name="Aep"/>
+                </Border>
+                <TextBlock Text="!" Foreground="Red" FontSize="{StaticResource Dbl_Fontsize}"
+                           Margin="3,0" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Popup AllowsTransparency="True" PopupAnimation="Slide"
+                       PlacementTarget="{Binding ElementName=BdrAep}" Placement="Bottom"
+                       IsOpen="{Binding ElementName=Aep, Path=AdornedElement.IsMouseOver, Mode=OneWay}">
+                    <TextBlock Text="{Binding ElementName=Aep, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                               Foreground="White" Background="Red" Padding="2" FontSize="{StaticResource Dbl_Fontsize}"/>
+                </Popup>
+            </StackPanel>
+        </ControlTemplate>
+
+        <local:ColorsConverter x:Key="colorsConverter"/>
+
     </Window.Resources>
 
     <Grid Margin="10">
@@ -64,17 +82,21 @@
         <TextBlock Text="Geschlecht:" 
                    Grid.Row="5"/>
 
+
         <TextBox x:Name="Tbx_Vorname"
                  Grid.Column="1"
-                 Text="{Binding Vorname}"/>
+                 Text="{Binding Vorname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource CtpError}"/>
 
         <TextBox x:Name="Tbx_Nachname"
                  Grid.Column="1" Grid.Row="1"
-                 Text="{Binding Nachname}"/>
+                 Text="{Binding Nachname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource CtpError}"/>
 
         <DatePicker x:Name="Dpr_Geburtsdatum"
                     Grid.Column="1" Grid.Row="2"
-                    SelectedDate="{Binding Geburtsdatum}"/>
+                    SelectedDate="{Binding Geburtsdatum, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource CtpError}"/>
 
         <CheckBox x:Name="Cbx_Verheiratet"
                   Grid.Column="1" Grid.Row="3"
@@ -84,8 +106,8 @@
                   Grid.Column="1" Grid.Row="4"
                   VerticalAlignment="Center"
                   Margin="2"
-                  SelectedValue="{Binding Lieblingsfarbe}"
-                  SelectedValuePath="Name"
+                  Validation.ErrorTemplate="{StaticResource CtpError}"
+                  SelectedIndex="{Binding Lieblingsfarbe,  Converter={StaticResource colorsConverter}, ConverterParameter={StaticResource Odp_ColorsProperties}, ValidatesOnDataErrors=True}"
                   ItemsSource="{Binding Source={StaticResource Odp_ColorsProperties}}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>

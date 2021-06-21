@@ -1,25 +1,32 @@
-﻿<Window x:Class="Templates.MainWindow"
+﻿<!--vgl. CodeBehind-->
+<Window x:Class="Templates.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Templates"
         mc:Ignorable="d"
-        Title="MainWindow" Height="320" Width="403">
-
+        Title="MainWindow" Height="367.015" Width="544.972">
     <Window.Resources>
-
         <Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
+                    <!--ControlTemplates definieren ein vollständig neues Layout für bestehende Elemente.
+                        Hierbei können alle Controls und Container verwendet werden. Die Zuweisung zu den Elementen
+                        erfolgt über deren Template-Property und den Key des Templates. Die Bindung von Propeties an
+                        Properties des Elements erfolgt über ein TemplateBinding-->
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="Bdr_Tpl_Btn" BorderBrush="DeepSkyBlue" BorderThickness="2" 
-                                CornerRadius="50" Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
+                        <Border x:Name="Bdr_Tpl_Btn" BorderBrush="DeepSkyBlue" BorderThickness="2" CornerRadius="50"
+                                Height="{TemplateBinding Height}"
+                                Width="{TemplateBinding Width}"
+                                Background="{TemplateBinding Background}">
+                            <!--Statt dem ContentPresenter kann z.B. ein TextBlock verwendet werden, wenn auf speziele Eigenschaften,
+                                    wie z.B. die FontSize eingegangen werden soll-->
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
 
                         <ControlTemplate.Triggers>
+                            <!--Trigger definieren veränderte Properties, wenn bestimmte Zustände eintreten-->
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Bdr_Tpl_Btn" Property="Background" Value="LightBlue"/>
                             </Trigger>
@@ -27,42 +34,47 @@
                                 <Setter TargetName="Bdr_Tpl_Btn" Property="Background" Value="DarkBlue"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
-                        
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        
     </Window.Resources>
-    
-    <StackPanel>
 
-        <Button Content="Klick Mich" x:Name="Btn_Beispiel"
-                Click="Btn_Beispiel_Click"
-                Height="100"
-                Width="100"
+    <StackPanel>
+        <!--Control-Template-Bsp-Button-->
+        <Button Content="Klick mich!!" Height="100" Width="100" 
+                x:Name="Btn_ControlTemplate" Click="Btn_ControlTemplate_Click"
                 Background="Aqua"/>
 
-        <ListBox x:Name="Lbx_Personen" Height="100" 
-                 ItemsSource="{Binding Personenliste}"
+        <!--DataTemplate-Bsp-->
+        <ListBox x:Name="Lbx_Personen" Height="100" ItemsSource="{Binding Personenliste}"
                  SelectedValuePath="Vorname">
             <ListBox.ItemTemplate>
+                <!--DataTemplates sind Vorlagen für das Layout von Items in ItemControls (z.B. ListView). Die Bindungen erfolgt an die
+                    ItemSource des Zielelements per Kurzbindungen.-->
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Vorname}"/>
                         <TextBlock Text=" "/>
-                        <TextBox Text="{Binding Nachname}"/>
+                        <TextBlock Text="{Binding Nachname}"/>
                         <TextBlock Text="{Binding Alter, StringFormat= ({0})}"/>
-                        <Button x:Name="Btn_Loeschen" Margin="2" Content="Löschen"
-                                Click="Btn_Loeschen_Click" Tag="{Binding}"/>
+                        <!--Property 'Tag' kann für jedes beliebige Objekt benutzt werden, z.B. für Zusatzinformation, Metadaten, Referenzen -->
+                        <!--Kurzbindung 'Binding' ohne Propertyangabe bindet immer an das ganze Objekt (hier: die ganze Person)-->
+                        <Button x:Name="Btn_Loeschen_02" Margin="2"
+                                Content="Löschen" Click="Btn_Loeschen_02_Click" Tag="{Binding}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button x:Name="Btn_Neu" Content="Neue Person" Click="Btn_Neu_Click"/>
+        <Button x:Name="Btn_Loeschen_01" Content="Lösche Person" Click="Btn_Loeschen_01_Click"/>
+        <Separator/>
 
-        <TextBlock Text="{Binding ElementName=Lbx_Personen, Path=SelectedIndex, StringFormat=Selected Index: {0}}"/>
-        <TextBlock Text="{Binding ElementName=Lbx_Personen, Path=SelectedItem, StringFormat=Selected Item: {0}}"/>
-        <TextBlock Text="{Binding ElementName=Lbx_Personen, Path=SelectedValue, StringFormat=Selected Value: {0}}"/>
-
+        <!--SelectedIndex gibt die Indexposition des markierten Elements zurück-->
+        <TextBlock Text="{Binding SelectedIndex, ElementName=Lbx_Personen, StringFormat=SelectedIndex: \{0\}}"/>
+        <!--SelectedItem gib das Objekt hinter dem markierten Element zurück-->
+        <TextBlock Text="{Binding ElementName=Lbx_Personen, Path=SelectedItem, StringFormat=SelectedItem: {0}}"/>
+        <!--SelectedValue gibt die in der Property SelectedValuePath im ItemControl angegebene Property zurück-->
+        <TextBlock Text="{Binding ElementName=Lbx_Personen, Path=SelectedValue, StringFormat=SelectedValue: {0}}"/>
     </StackPanel>
 </Window>

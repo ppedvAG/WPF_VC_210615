@@ -1,0 +1,80 @@
+﻿<Window x:Class="Validation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Validation"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="395" Width="445">
+
+
+    <Window.Resources>
+        <!--Validierungsregeln müssen normalerweise direkt in den Bindings definiert werden. Mittels dieser
+        Hilfsklasse ist es möglich Sammlungen von ValidationRules in den Ressourcen zu definieren (vgl. Person.cs).
+        Die Anbindung erfolgt über StaticResource-Bindungen im Binding-Objekt:
+            <Binding ValidationRules={StaticResource validationRules>-->
+        <local:ValidationRuleCollection x:Key="validationRules">
+            <local:IPv4Validation/>
+        </local:ValidationRuleCollection>
+
+        <!--ErrorTemplates sind ControlTemplates, welche das Element im Falle einer verletzten ValidationRule anzeigt-->
+        <ControlTemplate x:Key="Ctp_Error_01">
+            <StackPanel>
+                <Border BorderBrush="Red" BorderThickness="2">
+                    <!--AdornedElementPlaceholder sind Platzhalterelemente für das ürsprüngliche Element in
+                        ErrorTemplates-->
+                    <AdornedElementPlaceholder x:Name="Aep"/>
+                </Border>
+                <TextBlock Foreground="Red"
+                           Text="{Binding ElementName=Aep, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"/>
+            </StackPanel>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="Ctp_Error_02">
+            <StackPanel>
+                <Border BorderBrush="Red" BorderThickness="2">
+                    <AdornedElementPlaceholder x:Name="Aep"/>
+                </Border>
+                <Popup PlacementTarget="{Binding ElementName=Aep}"
+                       Placement="Bottom"
+                       IsOpen="{Binding ElementName=Aep, Path=AdornedElement.IsMouseOver, Mode=OneWay}"
+                       PopupAnimation="Fade">
+                    <TextBlock Foreground="White" Background="Red" Margin="5"
+                               Text="{Binding ElementName=Aep, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"/>
+                </Popup>
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <local:Person/>
+    </Window.DataContext>
+
+
+    <StackPanel Margin="5">
+
+        <TextBox x:Name="Tbx_IpInput"
+                 Validation.ErrorTemplate="{StaticResource Ctp_Error_02}">
+            <TextBox.Text>
+                <Binding ElementName="Tbl_IpOutput" Path="Text" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <!--ValidationRules definieren, wann eine Eingabe durch den Benutzer eine zulässige Eingabe ist und
+                        geben das Ergebnis dieser Prüfung an die GUI zurück. Im False-Fall wird gegebenenfalls ein ErrorTemplate
+                        angezeigt. ValidationsRules werden als C#-Klasse abgelegt.-->
+                        <local:IPv4Validation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBlock x:Name="Tbl_IpOutput"/>
+
+        <!--Mit der Property ValidatesOnExceptions können vom CodeBehind geworfene Exceptions als ValidierungsFall von der GUI aufgefangen werden-->
+        <TextBox Text="{Binding Name, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+                 Validation.ErrorTemplate="{StaticResource Ctp_Error_01}"/>
+
+        <!--Mit der Property ValidatesOnDataErrors können durch bestimmte Interfaces direkt in der Datenklasse ValidierungsFälle definiert werden-->
+        <TextBox Text="{Binding Alter, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                 Validation.ErrorTemplate="{StaticResource Ctp_Error_01}"/>
+    </StackPanel>
+</Window>
+
