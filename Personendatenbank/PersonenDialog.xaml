@@ -107,7 +107,7 @@
                   VerticalAlignment="Center"
                   Margin="2"
                   Validation.ErrorTemplate="{StaticResource CtpError}"
-                  SelectedIndex="{Binding Lieblingsfarbe,  Converter={StaticResource colorsConverter}, ConverterParameter={StaticResource Odp_ColorsProperties}, ValidatesOnDataErrors=True}"
+                  SelectedIndex="{Binding Lieblingsfarbe, Converter={StaticResource colorsConverter}, ConverterParameter={StaticResource Odp_ColorsProperties}, ValidatesOnDataErrors=True}"
                   ItemsSource="{Binding Source={StaticResource Odp_ColorsProperties}}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -139,7 +139,28 @@
                    HorizontalAlignment="Right" Margin="0,5">
             <Button x:Name="Btn_Ok"
                     Content="OK"
-                    Click="Btn_Ok_Click"/>
+                    Click="Btn_Ok_Click">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource Sty_Btn_Base}">
+
+                        <Setter Property="IsEnabled" Value="False"/>
+
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=Tbx_Vorname, Path=(Validation.HasError)}" Value="False"/>
+                                    <Condition Binding="{Binding ElementName=Tbx_Nachname, Path=(Validation.HasError)}" Value="False"/>
+                                    <Condition Binding="{Binding ElementName=Dpr_Geburtsdatum, Path=(Validation.HasError)}" Value="False"/>
+                                    <Condition Binding="{Binding ElementName=Cbb_Lieblingsfarbe, Path=(Validation.HasError)}" Value="False"/>
+                                </MultiDataTrigger.Conditions>
+
+                                <Setter Property="IsEnabled" Value="True"/>
+
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             <Button x:Name="Btn_Abbruch"
                     Content="Abbrechen"/>
         </WrapPanel>

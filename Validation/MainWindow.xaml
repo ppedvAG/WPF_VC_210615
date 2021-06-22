@@ -30,20 +30,26 @@
             </StackPanel>
         </ControlTemplate>
 
-        <ControlTemplate x:Key="Ctp_Error_02">
-            <StackPanel>
-                <Border BorderBrush="Red" BorderThickness="2">
-                    <AdornedElementPlaceholder x:Name="Aep"/>
-                </Border>
-                <Popup PlacementTarget="{Binding ElementName=Aep}"
-                       Placement="Bottom"
-                       IsOpen="{Binding ElementName=Aep, Path=AdornedElement.IsMouseOver, Mode=OneWay}"
-                       PopupAnimation="Fade">
-                    <TextBlock Foreground="White" Background="Red" Margin="5"
+        <Style TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Border BorderBrush="Red" BorderThickness="2">
+                                <AdornedElementPlaceholder x:Name="Aep"/>
+                            </Border>
+                            <Popup PlacementTarget="{Binding ElementName=Aep}"
+                                    Placement="Bottom"
+                                    IsOpen="{Binding ElementName=Aep, Path=AdornedElement.IsMouseOver, Mode=OneWay}"
+                                    PopupAnimation="Fade">
+                                <TextBlock Foreground="White" Background="Red" Margin="5"
                                Text="{Binding ElementName=Aep, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"/>
-                </Popup>
-            </StackPanel>
-        </ControlTemplate>
+                            </Popup>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Window.DataContext>
@@ -53,8 +59,7 @@
 
     <StackPanel Margin="5">
 
-        <TextBox x:Name="Tbx_IpInput"
-                 Validation.ErrorTemplate="{StaticResource Ctp_Error_02}">
+        <TextBox x:Name="Tbx_IpInput">
             <TextBox.Text>
                 <Binding ElementName="Tbl_IpOutput" Path="Text" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>

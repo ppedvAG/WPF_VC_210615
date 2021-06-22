@@ -38,11 +38,12 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
-    <Style TargetType="Button">
+    <Style TargetType="Button" x:Key="Sty_Btn_Base">
         <Setter Property="Width" Value="110"/>
         <Setter Property="Margin" Value="5,0,0,0"/>
         <Setter Property="FontSize" Value="{StaticResource Dbl_Fontsize}"/>
     </Style>
 
+    <Style TargetType="Button" BasedOn="{StaticResource Sty_Btn_Base}"/>
 
 </ResourceDictionary>

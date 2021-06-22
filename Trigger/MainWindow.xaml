@@ -1,0 +1,62 @@
+﻿<Window x:Class="Trigger.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Trigger"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="363" Width="267">
+    <!--Mittels Triggern kann das Verhalten/Aussehen von Objekten unter bestimmten Umständen geändert werden-->
+    <StackPanel x:Name="Spl_Main"
+                Background="{Binding ElementName=ColorPicker, Path=PickedColor}">
+        <StackPanel.Triggers>
+            <!--EventTrigger reagieren auf ein geworfenes RoutedEvent und werden dafür verwendet,
+            Storyboards zu starten. EventTrigger sind die einzige Triggerart, die direkt in die 
+            Trigger-Property der Controls/Container gelegt werden kann.-->
+            <EventTrigger RoutedEvent="PreviewMouseDown">
+                <!--vgl. Animationen-->
+            </EventTrigger>
+        </StackPanel.Triggers>
+
+        <!--Alle anderen Triggerarten müssen in Styles gelegt werden und können demnach auch nur Properties
+        manipulieren, die NICHT im Control selbst belegt sind-->
+        <TextBlock Margin="20">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+
+                    <!--Standartlayout-->
+                    <Setter Property="Text" Value="TRUE"/>
+                    <Setter Property="Foreground" Value="Green"/>
+
+                    <Style.Triggers>
+                        <!--(Property-)Trigger reagieren auf eine Veränderung einer Property des Controls, in 
+                        dessen Style sie definiert sind-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <!--Das Resultat des Triggers wird durch Setter definiert-->
+                            <Setter Property="TextDecorations" Value="Underline"/>
+                            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Trigger>
+
+                        <!--Der DataTrigger reagiert auf eine Veränderung einer WPF- oder .NET-Property 
+                        (hier im CodeBehind)-->
+                        <DataTrigger Binding="{Binding BoolVal}" Value="False">
+                            <Setter Property="Text" Value="FALSE"/>
+                            <Setter Property="Foreground" Value="Red"/>
+                        </DataTrigger>
+
+                        <!--Später definierte Trigger haben Vorrang-->
+                        <DataTrigger Binding="{Binding ElementName=Btn_Ändern, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Foreground" Value="DarkGoldenrod"/>
+                        </DataTrigger>
+
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <Button x:Name="Btn_Ändern" Click="Btn_Ändern_Click" Content="Ändern"/>
+
+    </StackPanel>
+    
+</Window>

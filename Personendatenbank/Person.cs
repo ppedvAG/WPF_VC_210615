@@ -32,7 +32,7 @@ namespace Personendatenbank
         private Gender geschlecht;
         public Gender Geschlecht { get => geschlecht; set { geschlecht = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Geschlecht))); } }
 
-      public string Error => null;
+        public string Error => null;
 
         public string this[string columnName]
         {

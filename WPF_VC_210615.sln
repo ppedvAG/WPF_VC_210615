@@ -21,9 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modul06_DataBinding", "Data
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modul07_Resources_Styles", "ResourcesStyles\Modul07_Resources_Styles.csproj", "{5AF9DC7D-36F5-4E38-A34D-97ADD21063D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul08_Templates", "Templates\Modul08_Templates.csproj", "{EF3DC247-0DA1-43CB-8E25-A090F37035D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modul08_Templates", "Templates\Modul08_Templates.csproj", "{EF3DC247-0DA1-43CB-8E25-A090F37035D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul09_Validation", "Validation\Modul09_Validation.csproj", "{B5425C43-2183-48E7-8305-52E7232BEE0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modul09_Validation", "Validation\Modul09_Validation.csproj", "{B5425C43-2183-48E7-8305-52E7232BEE0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul10_Trigger", "Trigger\Modul10_Trigger.csproj", "{B2D86E43-A670-40E3-ABF4-CD3A5E9FE9A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{B5425C43-2183-48E7-8305-52E7232BEE0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5425C43-2183-48E7-8305-52E7232BEE0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5425C43-2183-48E7-8305-52E7232BEE0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2D86E43-A670-40E3-ABF4-CD3A5E9FE9A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2D86E43-A670-40E3-ABF4-CD3A5E9FE9A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2D86E43-A670-40E3-ABF4-CD3A5E9FE9A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D86E43-A670-40E3-ABF4-CD3A5E9FE9A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
