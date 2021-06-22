@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Neue Person" 
-        Height="275" Width="285"  ResizeMode="NoResize" 
+        Height="310" Width="285"  ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" Topmost="True"
         FontSize="14.0"
         PreviewKeyDown="Window_PreviewKeyDown"
@@ -61,6 +61,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -135,7 +136,12 @@
 
         </StackPanel>
 
-        <WrapPanel Grid.Row="6" Grid.ColumnSpan="2"
+        <local:IntegerUpDown x:Name="Iud_Kinder" 
+                             Grid.Row="6" Grid.Column="1" Margin="2"
+                             Value="{Binding Kinder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                             Validation.ErrorTemplate="{StaticResource CtpError}"/>
+
+        <WrapPanel Grid.Row="7" Grid.ColumnSpan="2"
                    HorizontalAlignment="Right" Margin="0,5">
             <Button x:Name="Btn_Ok"
                     Content="OK"
@@ -152,6 +158,7 @@
                                     <Condition Binding="{Binding ElementName=Tbx_Nachname, Path=(Validation.HasError)}" Value="False"/>
                                     <Condition Binding="{Binding ElementName=Dpr_Geburtsdatum, Path=(Validation.HasError)}" Value="False"/>
                                     <Condition Binding="{Binding ElementName=Cbb_Lieblingsfarbe, Path=(Validation.HasError)}" Value="False"/>
+                                    <Condition Binding="{Binding ElementName=Iud_Kinder, Path=(Validation.HasError)}" Value="False"/>
                                 </MultiDataTrigger.Conditions>
 
                                 <Setter Property="IsEnabled" Value="True"/>
@@ -162,7 +169,8 @@
                 </Button.Style>
             </Button>
             <Button x:Name="Btn_Abbruch"
-                    Content="Abbrechen"/>
+                    Content="Abbrechen"
+                    Click="Btn_Abbruch_Click"/>
         </WrapPanel>
     </Grid>
 </Window>

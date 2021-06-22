@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trigger"
         mc:Ignorable="d"
-        Title="MainWindow" Height="363" Width="267">
+        Title="MainWindow" Height="363" Width="232"
+        xmlns:uc="clr-namespace:UserControls;assembly=UserControls">
+    
     <!--Mittels Triggern kann das Verhalten/Aussehen von Objekten unter bestimmten Umständen geändert werden-->
     <StackPanel x:Name="Spl_Main"
                 Background="{Binding ElementName=ColorPicker, Path=PickedColor}">
@@ -57,6 +59,11 @@
 
         <Button x:Name="Btn_Ändern" Click="Btn_Ändern_Click" Content="Ändern"/>
 
+
+        <!--Beispiel-Einbindung des UserControls aus M11_UserControls-->
+        <uc:ColorPicker x:Name="ColorPicker" Beschreibung="Ausgewählte Farbe:" Tap="ColorPicker_Tap">
+            <!--<Button Content="Hallo" uc:ColorPicker.Count="5"/>-->
+        </uc:ColorPicker>
     </StackPanel>
     
 </Window>

@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="Personendatenbank.IntegerUpDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Personendatenbank"
+             mc:Ignorable="d" 
+             d:DesignHeight="45" d:DesignWidth="80"
+             x:Name="Uc_IntUpDown">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="FontSize" Value="7"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="TextBox"/>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Grid.RowSpan="2"  VerticalContentAlignment="Center" Text="{Binding ElementName=Uc_IntUpDown, Path=Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+        <Button Grid.Column="1" Content="&#11205;" x:Name="Btn_Up" Click="Btn_Up_Click" Padding="4,0,0,0"/>
+        <Button Grid.Column="1" Grid.Row="2" Content="&#11206;" x:Name="Btn_Down" Click="Btn_Down_Click" Padding="4,0,0,0"/>
+    </Grid>
+</UserControl>

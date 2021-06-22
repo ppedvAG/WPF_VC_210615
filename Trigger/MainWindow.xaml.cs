@@ -48,5 +48,11 @@ namespace Trigger
         {
             BoolVal = !BoolVal;
         }
+
+        //Event-Handler für Bsp-Event des UserControls (vgl. Modul 11)
+        private void ColorPicker_Tap(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(ColorPicker.PickedColor.ToString());
+        }
     }
 }

@@ -8,4 +8,8 @@
     <AssemblyName>Trigger</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UserControls\Modul11_UserControls.csproj" />
+  </ItemGroup>
+
 </Project>
