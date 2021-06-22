@@ -23,6 +23,14 @@ namespace Personendatenbank
         public IntegerUpDown()
         {
             InitializeComponent();
+
+            //Binding binding = new Binding();
+            //binding.Source = Tbx_Input;
+            //binding.Path = new PropertyPath("Text");
+            //binding.Mode = BindingMode.TwoWay;
+            //binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+            //BindingOperations.SetBinding(this, ValueProperty, binding);
         }
 
         public int Value
