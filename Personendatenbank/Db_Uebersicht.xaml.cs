@@ -58,14 +58,17 @@ namespace Personendatenbank
 
         private void Btn_Aendern_Click(object sender, RoutedEventArgs e)
         {
-            PersonenDialog dialog = new PersonenDialog();
+            if (Dgd_Personen.SelectedItem is Person)
+            {
+                PersonenDialog dialog = new PersonenDialog();
 
-            dialog.DataContext = new Person(Dgd_Personen.SelectedItem as Person);
+                dialog.DataContext = new Person(Dgd_Personen.SelectedItem as Person);
 
-            dialog.Title = (dialog.DataContext as Person).Vorname + " " + (dialog.DataContext as Person).Nachname;
+                dialog.Title = (dialog.DataContext as Person).Vorname + " " + (dialog.DataContext as Person).Nachname;
 
-            if (dialog.ShowDialog() == true)
-                Personenliste[Dgd_Personen.SelectedIndex] = (dialog.DataContext as Person);
+                if (dialog.ShowDialog() == true)
+                    Personenliste[Dgd_Personen.SelectedIndex] = (dialog.DataContext as Person);
+            }
         }
     }
 }

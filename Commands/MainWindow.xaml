@@ -1,0 +1,39 @@
+﻿<Window x:Class="Commands.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Commands"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        x:Name="Wnd_Main">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="Cut"/>
+        <CommandBinding Command="Copy"/>
+        <CommandBinding Command="Paste"/>
+    </Window.CommandBindings>
+    
+    <StackPanel>
+        <TextBox Height="100" AcceptsReturn="True" x:Name="Tbx_Input">
+            <TextBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="Cut"/>
+                    <MenuItem Command="Copy"/>
+                    <MenuItem Command="Paste"/>
+                </ContextMenu>
+            </TextBox.ContextMenu>
+
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="MouseDoubleClick">
+                    <b:InvokeCommandAction Command="{Binding CloseCmd}" CommandParameter="{Binding ElementName=Wnd_Main}"/>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+            
+        </TextBox>
+        <Button Content="Schließen" Command="{Binding CloseCmd}" CommandParameter="{Binding ElementName=Wnd_Main}"/>
+        <Button Content="Öffnen" Command="{Binding OpenCmd}" CommandParameter="{Binding ElementName=Tbx_Input, Path=Text}"/>
+    </StackPanel>
+    
+</Window>
