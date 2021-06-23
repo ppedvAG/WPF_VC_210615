@@ -1,7 +1,7 @@
 ﻿<!--vgl. M07_Resources_Styles-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:MVVM_Personenverwaltung"
+                    xmlns:local="clr-namespace:MVVM"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <sys:Double x:Key="double_FontSize">14</sys:Double>

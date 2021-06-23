@@ -7,6 +7,7 @@ using System.Windows.Input;
 
 namespace MVVM
 {
+    //vgl. M13_Commands
     public class CustomCommand : ICommand
     {
         public Action<object> ExecuteMethode { get; set; }
