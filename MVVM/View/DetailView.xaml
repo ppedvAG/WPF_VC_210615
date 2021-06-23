@@ -1,28 +1,30 @@
-﻿<Window x:Class="MVVM.PersonenDialog"
+﻿<Window x:Class="MVVM.View.DetailView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MVVM"
+        xmlns:local="clr-namespace:MVVM.View"
+        xmlns:conv="clr-namespace:MVVM.Converter"
+        xmlns:vm="clr-namespace:MVVM.ViewModel"
+        xmlns:main="clr-namespace:MVVM"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Neue Person" 
-        Height="310" Width="285"  ResizeMode="NoResize" 
-        WindowStartupLocation="CenterScreen" Topmost="True"
-        FontSize="14.0"
-        PreviewKeyDown="Window_PreviewKeyDown"
-        PreviewMouseDown="LogAction"
-        TextBoxBase.TextChanged="LogAction"
-        ButtonBase.Click="LogAction"
-        Style="{StaticResource Sty_Wnd}">
-
-    <Window.DataContext>
-        <local:Person/>
-    </Window.DataContext>
+        Height="312" Width="291" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" 
+        Topmost="True"
+        Style="{StaticResource Sty_Wnd}"
+        x:Name="Wnd_Detail">
 
     <Window.Resources>
-        <local:GenderToBoolConverter x:Key="gender2bool"/>
+        <conv:GenderToBoolConverter x:Key="gender2bool"/>
+        <conv:ColorsConverter x:Key="colors"/>
 
+        <!--ObjectDataPropviders können Klassen und Objekte zu in XAML verwendbaren Elementen, wie
+        z.B. Listen aufbereiten.
+        Dieser ODP sorgt dafür, dass die Colors-Klasse in XAML zugänglich ist. Dazu benutzt er seine
+        GetType-Methode. Die MethodParameter dafinieren, welche Klasse er aufbereiten soll.-->
         <ObjectDataProvider x:Key="Odp_Colors"
                             MethodName="GetType"
                             ObjectType="{x:Type sys:Type}">
@@ -31,31 +33,37 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 
+        <!--Objekt zur Bereitstellung der Properties der Colors-Klasse (vordefinierte Farben)-->
         <ObjectDataProvider x:Key="Odp_ColorsProperties"
                             MethodName="GetProperties"
                             ObjectInstance="{StaticResource Odp_Colors}"/>
 
+        <!--Error-Template für den Fall einer fehlerhaften Eingabe in einzelnen Controls-->
         <ControlTemplate x:Key="CtpError">
             <StackPanel Orientation="Horizontal">
                 <Border BorderBrush="Red" BorderThickness="1" x:Name="BdrAep">
                     <AdornedElementPlaceholder x:Name="Aep"/>
                 </Border>
-                <TextBlock Text="!" Foreground="Red" FontSize="{StaticResource Dbl_Fontsize}"
+                <TextBlock Text="!" Foreground="Red" FontSize="{StaticResource double_FontSize}"
                            Margin="3,0" FontWeight="Bold" VerticalAlignment="Center"/>
                 <Popup AllowsTransparency="True" PopupAnimation="Slide"
                        PlacementTarget="{Binding ElementName=BdrAep}" Placement="Bottom"
                        IsOpen="{Binding ElementName=Aep, Path=AdornedElement.IsMouseOver, Mode=OneWay}">
                     <TextBlock Text="{Binding ElementName=Aep, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
-                               Foreground="White" Background="Red" Padding="2" FontSize="{StaticResource Dbl_Fontsize}"/>
+                               Foreground="White" Background="Red" Padding="2" FontSize="{StaticResource double_FontSize}"/>
                 </Popup>
             </StackPanel>
         </ControlTemplate>
 
-        <local:ColorsConverter x:Key="colorsConverter"/>
-
     </Window.Resources>
 
+    <!--Das zugehörige ViewModel dient dieser Seite als DatenKontext-->
+    <Window.DataContext>
+        <vm:DetailViewModel/>
+    </Window.DataContext>
+
     <Grid Margin="10">
+        <!--Grid-Spalten- und Reihen-Definitionen-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
@@ -71,6 +79,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!--linke Spalte (nur statische Stringanzeigen)-->
         <TextBlock Text="Vorname:"/>
         <TextBlock Text="Nachname:" 
                    Grid.Row="1"/>
@@ -81,36 +90,46 @@
         <TextBlock Text="Lieblingsfarbe:" 
                    Grid.Row="4"/>
         <TextBlock Text="Geschlecht:" 
-                   Grid.Row="5"/>
+                   Grid.Row="5"
+                   VerticalAlignment="Top"/>
+        <TextBlock Text="Kinder:" 
+                   Grid.Row="6"/>
 
-
+        <!--rechte Spalte (Eingabefelder)
+        Bindungen erfolgen an Eigenschaften (z.B. Vorname) einer Property (NeuePerson) aus dem DataContext.
+        Zur Verwendung des Validierungs-Interfaces wurde ValidatesOnDataErrors gesetzt.-->
         <TextBox x:Name="Tbx_Vorname"
                  Grid.Column="1"
-                 Text="{Binding Vorname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Text="{Binding NeuePerson.Vorname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource CtpError}"/>
 
         <TextBox x:Name="Tbx_Nachname"
                  Grid.Column="1" Grid.Row="1"
-                 Text="{Binding Nachname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Text="{Binding NeuePerson.Nachname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource CtpError}"/>
 
         <DatePicker x:Name="Dpr_Geburtsdatum"
                     Grid.Column="1" Grid.Row="2"
-                    SelectedDate="{Binding Geburtsdatum, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    SelectedDate="{Binding NeuePerson.Geburtsdatum, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource CtpError}"/>
 
         <CheckBox x:Name="Cbx_Verheiratet"
                   Grid.Column="1" Grid.Row="3"
-                  IsChecked="{Binding Verheiratet}"/>
+                  IsChecked="{Binding NeuePerson.Verheiratet, UpdateSourceTrigger=PropertyChanged}"/>
 
+        <!--Die ComboBox holt sich die Farben über den oben definierten ObjektDataProvider, welcher hier als
+        ItemSource gesetzt wurde. Mittels der Eigenschaft SelectedPathValue kann definiert werden, welche die
+        Eigenschaften des ODP in der Auswahl verwendet werden soll. Beachte, dass auch das Rechteck und die 
+        Textbox aus dem ItemTemplate an diese ausgewählte Eigenschaft gebunden sind.-->
         <ComboBox x:Name="Cbb_Lieblingsfarbe"
                   Grid.Column="1" Grid.Row="4"
-                  VerticalAlignment="Center"
-                  Margin="2"
-                  Validation.ErrorTemplate="{StaticResource CtpError}"
-                  SelectedIndex="{Binding Lieblingsfarbe, Converter={StaticResource colorsConverter}, ConverterParameter={StaticResource Odp_ColorsProperties}, ValidatesOnDataErrors=True}"
-                  ItemsSource="{Binding Source={StaticResource Odp_ColorsProperties}}">
+                  ItemsSource="{Binding Source={StaticResource Odp_ColorsProperties}}"
+                  SelectedValuePath="Name"
+                  SelectedValue="{Binding NeuePerson.Lieblingsfarbe, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 SelectedIndex="{Binding NeuePerson.Lieblingsfarbe, Converter={StaticResource colors}, ConverterParameter={StaticResource Odp_ColorsProperties}, ValidatesOnDataErrors=True}"
+                Validation.ErrorTemplate="{StaticResource CtpError}">
             <ComboBox.ItemTemplate>
+                <!--Diese ItemTemplate stellt vor dem entsprechenden Farbnamen ein Recteck in dieser Farbe dar-->
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Border BorderBrush="Black" BorderThickness="1" Width="20" Height="20" Margin="5,0">
@@ -122,31 +141,39 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
+        <!--Die RadioButtons übermitteln an den Konverter den ihnen zugeteilten Enumerator-Zustand über den 
+        ConverterParameter. Dadurch muss der Konverter diese nur noch mit der ausgewählten Eigenschaft vergleichen.-->
         <StackPanel Margin="2"
                     Grid.Column="1" Grid.Row="5">
             <RadioButton Content="M"
                          GroupName="Rbg_Gender"
-                         IsChecked="{Binding Geschlecht, Converter={StaticResource gender2bool}, ConverterParameter={x:Static local:Gender.Männlich}}"/>
+                         IsChecked="{Binding NeuePerson.Geschlecht, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource gender2bool}, ConverterParameter={x:Static main:Gender.Männlich}}"/>
             <RadioButton Content="W"
                          GroupName="Rbg_Gender"
-                         IsChecked="{Binding Geschlecht, Converter={StaticResource gender2bool}, ConverterParameter={x:Static local:Gender.Weiblich}}"/>
+                         IsChecked="{Binding NeuePerson.Geschlecht, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource gender2bool}, ConverterParameter={x:Static main:Gender.Weiblich}}"/>
             <RadioButton Content="D"
                          GroupName="Rbg_Gender"
-                         IsChecked="{Binding Geschlecht, Converter={StaticResource gender2bool}, ConverterParameter={x:Static local:Gender.Divers}}"/>
-
+                         IsChecked="{Binding NeuePerson.Geschlecht, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource gender2bool}, ConverterParameter={x:Static main:Gender.Divers}}"/>
         </StackPanel>
 
-        <local:IntegerUpDown x:Name="Iud_Kinder" 
-                             Grid.Row="6" Grid.Column="1" Margin="2"
-                             Value="{Binding Kinder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
-                             Validation.ErrorTemplate="{StaticResource CtpError}"/>
+        <main:IntegerUpDown x:Name="Iud_Kinder" 
+                          Height="25"
+                          Grid.Row="6" Grid.Column="1" Margin="2"
+                          Value="{Binding NeuePerson.Kinder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                          Validation.ErrorTemplate="{StaticResource CtpError}"/>
+
 
         <WrapPanel Grid.Row="7" Grid.ColumnSpan="2"
                    HorizontalAlignment="Right" Margin="0,5">
+            <!--Den Buttons wird als CommandParameter das Fenster übergeben, damit im ViewModel dessen Close-Befehl verwendet werden kann-->
             <Button x:Name="Btn_Ok"
                     Content="OK"
-                    Click="Btn_Ok_Click">
+                    Command="{Binding OkCmd}"
+                    CommandParameter="{Binding ElementName=Wnd_Detail}">
                 <Button.Style>
+                    <!--In diesem ButtonStyle wurden diverse Trigger definiert. Diese sorgen dafür, dass der Button erst verfügbar
+                    wird, wenn keines der obigen Elemente eine fehlerhafte Validierung meldet. Dies könnte aud durch die CanExecute-
+                    Methode des Commands gesteuert werden, ist auf diese Weise jedoch einfacher-->
                     <Style TargetType="Button" BasedOn="{StaticResource Sty_Btn_Base}">
 
                         <Setter Property="IsEnabled" Value="False"/>
@@ -170,9 +197,9 @@
             </Button>
             <Button x:Name="Btn_Abbruch"
                     Content="Abbrechen"
-                    Click="Btn_Abbruch_Click"/>
+                    Command="{Binding AbbruchCmd}"
+                    CommandParameter="{Binding ElementName=Wnd_Detail}"/>
         </WrapPanel>
     </Grid>
 </Window>
-
 

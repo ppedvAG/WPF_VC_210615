@@ -29,9 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modul10_Trigger", "Trigger\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modul11_UserControls", "UserControls\Modul11_UserControls.csproj", "{9E378D5C-C858-46A1-9970-230437B60594}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands", "Commands\Commands.csproj", "{1555A4F0-3C9D-4A1E-B57C-4044849BFAD2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul13_Commands", "Commands\Modul13_Commands.csproj", "{1555A4F0-3C9D-4A1E-B57C-4044849BFAD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM", "MVVM\MVVM.csproj", "{90133B13-EE06-4063-AA0F-968743A007E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modul14_MVVM", "MVVM\Modul14_MVVM.csproj", "{90133B13-EE06-4063-AA0F-968743A007E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

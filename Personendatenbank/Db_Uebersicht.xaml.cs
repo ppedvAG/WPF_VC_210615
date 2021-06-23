@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Personendatenbank
+namespace MVVM
 {
     /// <summary>
     /// Interaction logic for Db_Uebersicht.xaml

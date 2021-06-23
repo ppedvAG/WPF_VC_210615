@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace MVVM
+namespace MVVM.Converter
 {
     public class ColorsConverter : IValueConverter
     {

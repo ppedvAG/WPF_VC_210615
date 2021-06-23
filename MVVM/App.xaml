@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:MVVM"
              StartupUri="View/StartView.xaml">
     <Application.Resources>
-         
+        <!--vgl. M07_Resources_Styles-->
+        <ResourceDictionary Source="GlobalResources.xaml"/>
     </Application.Resources>
 </Application>

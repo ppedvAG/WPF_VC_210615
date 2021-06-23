@@ -6,34 +6,48 @@
         xmlns:local="clr-namespace:Commands"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="390" Width="370"
         x:Name="Wnd_Main">
 
+    <!--Commands sind Light-Events, welche man über Xaml einbindet und die in 
+        einer eigenen Klasse definiert werden. Jeder Command besitzt eine Methode,
+        in welcher sich der auszuführende Code befindet und eine Methode, welche 
+        überprüft, ob der Command gerade ausgeführt werden darf.
+        Bestimmte Commands (s.u.) sind bereits vordefiniert.-->
     <Window.CommandBindings>
         <CommandBinding Command="Cut"/>
         <CommandBinding Command="Copy"/>
         <CommandBinding Command="Paste"/>
     </Window.CommandBindings>
-    
+
+    <!--Anbindung von individuellen Commands an Tastenkombinationen-->
+    <Window.InputBindings>
+        <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding CloseCmd}" CommandParameter="{Binding ElementName=Wnd_Main}"/>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding OeffnenCmd}" CommandParameter="{Binding ElementName=Tbx_Input, Path=Text}"/>
+    </Window.InputBindings>
+
     <StackPanel>
         <TextBox Height="100" AcceptsReturn="True" x:Name="Tbx_Input">
             <TextBox.ContextMenu>
                 <ContextMenu>
+                    <!--Verwendung der voreingestellten Commands-->
                     <MenuItem Command="Cut"/>
                     <MenuItem Command="Copy"/>
                     <MenuItem Command="Paste"/>
                 </ContextMenu>
             </TextBox.ContextMenu>
 
+            <!--Mittels Interaction.Triggers aus dem Behaviors-Namespace kann jedes beliebige RoutedEvent
+            auf ein Command umgeleitet werden-->
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="MouseDoubleClick">
                     <b:InvokeCommandAction Command="{Binding CloseCmd}" CommandParameter="{Binding ElementName=Wnd_Main}"/>
                 </b:EventTrigger>
             </b:Interaction.Triggers>
-            
         </TextBox>
+
+        <!--Verwendung von eigenen Commands aus dem CodeBehind-->
         <Button Content="Schließen" Command="{Binding CloseCmd}" CommandParameter="{Binding ElementName=Wnd_Main}"/>
-        <Button Content="Öffnen" Command="{Binding OpenCmd}" CommandParameter="{Binding ElementName=Tbx_Input, Path=Text}"/>
+        <Button Content="Öffnen" Command="{Binding OeffnenCmd}" CommandParameter="{Binding ElementName=Tbx_Input, Path=Text}"/>
     </StackPanel>
-    
 </Window>

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Personendatenbank
+namespace MVVM
 {
     public class GenderToBoolConverter : IValueConverter
     {
