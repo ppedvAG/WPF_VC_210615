@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVM.View"
         xmlns:vm="clr-namespace:MVVM.ViewModel"
+        xmlns:main="clr-namespace:MVVM"
         mc:Ignorable="d"
-        Title="Personendatenbank" Height="169" Width="362"
+        Title="Personendatenbank" Height="283" Width="362"
         Style="{StaticResource Sty_Wnd}"
         x:Name="Wnd_Start">
 
@@ -29,5 +30,12 @@
         </WrapPanel>
 
         <TextBlock Text="{Binding AnzahlPersonen, StringFormat=Es wurden {0} Personen geladen.}" HorizontalAlignment="Center"/>
+
+        <main:Juggler HorizontalAlignment="Center">
+            <main:Juggler.RenderTransform>
+                <TranslateTransform X="-50"/>
+            </main:Juggler.RenderTransform>
+        </main:Juggler>
+
     </StackPanel>
 </Window>

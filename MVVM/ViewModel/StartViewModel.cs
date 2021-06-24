@@ -46,6 +46,9 @@ namespace MVVM.ViewModel
                     {
                         //Instanzierung eines neunen ListViews
                         ListView db_Ansicht = new ListView();
+                        
+                        (db_Ansicht.DataContext as ListViewModel).ContextWindow = db_Ansicht;
+                        
                         //Anzeigen des neuen ListViews
                         db_Ansicht.Show();
                         //Schließen dieses Fensters (welches über den CommandParameter übergeben wurde)

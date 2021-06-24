@@ -3,8 +3,10 @@ using MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -17,6 +19,9 @@ namespace MVVM.ViewModel
         public CustomCommand AendernCmd { get; set; }
         public CustomCommand LoeschenCmd { get; set; }
         public CustomCommand SchliessenCmd { get; set; }
+        public CustomCommand SpracheAendernCmd { get; set; }
+        
+        public Window ContextWindow { get; set; }
 
         //Listen-Property, welche auf die Liste des Models verlinkt
         public ObservableCollection<Person> Personenliste { get { return Model.Person.Personenliste; } }
@@ -85,8 +90,45 @@ namespace MVVM.ViewModel
                     //Exe: Schließen der Applikation
                     p => Application.Current.Shutdown()
                 );
+
+            SpracheAendernCmd = new CustomCommand
+                (
+                    p =>
+                    {
+                        switch ((Sprache)p)
+                        {
+                            case Sprache.Deutsch:
+                                if (Thread.CurrentThread.CurrentUICulture.Name == "en-US")
+                                {
+                                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de-DE");
+                                    ReloadWindow();
+
+                                    File.WriteAllText("settings.txt", "language=de-DE");
+                                }
+                                break;
+                            case Sprache.Englisch:
+                                if (Thread.CurrentThread.CurrentUICulture.Name != "en-US")
+                                {
+                                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+                                    ReloadWindow();
+
+                                    File.WriteAllText("settings.txt", "language=en-US");
+                                }
+                                break;
+                        }
+                    }
+                );
         }
 
+        private void ReloadWindow()
+        {
+            ListView db_Ansicht = new ListView();
+
+            (db_Ansicht.DataContext as ListViewModel).ContextWindow = db_Ansicht;
+
+            db_Ansicht.Show();
+
+            ContextWindow.Close();
+        }
     }
 }
-

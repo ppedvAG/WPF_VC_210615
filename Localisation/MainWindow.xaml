@@ -1,0 +1,26 @@
+﻿<!--Vgl. CodeBehind-->
+<Window x:Class="Localisation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Localisation"
+        xmlns:loc="clr-namespace:Localisation.Loc"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="232" Width="393">
+    <Window.Resources>
+        <local:EnumToStringConverter x:Key="enum2string"/>
+    </Window.Resources>
+
+    <StackPanel>
+        <!--An resx-Dateien wird über die x:Static-Bindung angebunden. Die resx-Dateien müssen
+        auf public gesetzt werden, damit Xaml darauf zugreifen kann-->
+        <Button Content="{x:Static loc:Strings.Btn_String}" Click="Button_Click"/>
+        <TextBlock Text="{x:Static loc:Strings.Tbl_String}"/>
+
+        <!--Lokalisierung eines Enums als Itemssource (vgl. CodeBehind)-->
+        <ComboBox ItemsSource="{local:Enumerate {x:Type local:TestEnum}}"
+                  SelectedItem="{Binding SelecedEnumValue, Converter={StaticResource EnumToStringConverter}}" />
+        <TextBlock Text="{Binding SelecedEnumValue}"/>
+    </StackPanel>
+</Window>

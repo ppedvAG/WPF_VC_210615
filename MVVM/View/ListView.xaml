@@ -7,8 +7,10 @@
         xmlns:vm="clr-namespace:MVVM.ViewModel"
         xmlns:conv="clr-namespace:MVVM.Converter"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:loc="clr-namespace:MVVM.Localisation"
+        xmlns:main="clr-namespace:MVVM"
         mc:Ignorable="d"
-        Title="Personendatenbank" Height="450" Width="800"
+        Title="{x:Static loc:Strings.Title_Text}"  Height="450" Width="800"
         Style="{StaticResource Sty_Wnd}">
 
     <!--Das zugehörige ViewModel dient dieser Seite als DatenKontext-->
@@ -18,6 +20,7 @@
 
     <Window.Resources>
         <conv:ColorToBrushConverter x:Key="color2brush"/>
+        <conv:GenderLocalisationConverter x:Key="genderLoc"/>
     </Window.Resources>
 
     <DockPanel Margin="5">
@@ -25,8 +28,18 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Datei">
                 <MenuItem x:Name="Mei_Beenden"
-                          Header="Beenden"
+                          Header="{x:Static loc:Strings.LV_MeiBeenden_Header}"
                           Command="{Binding SchliessenCmd}"/>
+            </MenuItem>
+            <MenuItem Header="{x:Static loc:Strings.LV_MeiSprache_Header}">
+                <MenuItem x:Name="Mei_Deutsch"
+                          Header="{x:Static loc:Strings.LV_MeiDeutsch_Header}"
+                          Command="{Binding SpracheAendernCmd}"
+                          CommandParameter="{x:Static main:Sprache.Deutsch}"/>
+                <MenuItem x:Name="Mei_Englisch"
+                          Header="{x:Static loc:Strings.LV_MeiEnglisch_Header}"
+                          Command="{Binding SpracheAendernCmd}"
+                          CommandParameter="{x:Static main:Sprache.Englisch}"/>
             </MenuItem>
         </Menu>
 
@@ -34,15 +47,15 @@
                    HorizontalAlignment="Right"
                    Margin="10,0,10,5">
             <Button x:Name="Btn_Neu"
-                    Content="Neue Person"
+                    Content="{x:Static loc:Strings.LV_BtnNeu_Content}"
                     Command="{Binding NeuCmd}"/>
             <!--Der Aendern- und der Loeschen-Command übergaben als Parameter das in dem DataGrid ausgewählte Objekt-->
             <Button x:Name="Btn_Aendern"
-                    Content="Ändere Person"
+                    Content="{x:Static loc:Strings.LV_BtnAendern_Content}"
                     Command="{Binding AendernCmd}"
                     CommandParameter="{Binding ElementName=Dgd_Personen, Path=SelectedItem}"/>
             <Button x:Name="Btn_Loeschen"
-                    Content="Lösche Person"
+                    Content="{x:Static loc:Strings.LV_BtnLoeschen_Content}"
                     Command="{Binding LoeschenCmd}"
                     CommandParameter="{Binding ElementName=Dgd_Personen, Path=SelectedItem}"/>
         </WrapPanel>
@@ -69,12 +82,12 @@
 
             <!--In der Columns-Property definiert man die benötigten Spalten und bindet diese an die ItemSource-->
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" Width="*"/>
-                <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}" Width="*"/>
-                <DataGridTextColumn Header="Geschlecht" Binding="{Binding Geschlecht}" Width="Auto"/>
-                <DataGridTextColumn Header="Geburtsdatum" Binding="{Binding Geburtsdatum, StringFormat=dd.MM.yyyy}" Width="Auto"/>
-                <DataGridTextColumn Header="Kinder" Binding="{Binding Kinder}" Width="Auto"/>
-                <DataGridTextColumn Header="Lieblingsfarbe" Binding="{Binding Lieblingsfarbe}" Width="Auto">
+                <DataGridTextColumn Header="{x:Static loc:Strings.M_Person_Vorname}" Binding="{Binding Vorname}" Width="*"/>
+                <DataGridTextColumn Header="{x:Static loc:Strings.M_Person_Nachname}" Binding="{Binding Nachname}" Width="*"/>
+                <DataGridTextColumn Header="{x:Static loc:Strings.M_Person_Geschlecht}" Binding="{Binding Geschlecht, Converter={StaticResource genderLoc}}" Width="Auto"/>
+                <DataGridTextColumn Header="{x:Static loc:Strings.M_Person_Geburtsdatum}" Binding="{Binding Geburtsdatum, StringFormat=dd.MM.yyyy}" Width="Auto"/>
+                <DataGridTextColumn Header="{x:Static loc:Strings.M_Person_Kinder}" Binding="{Binding Kinder}" Width="Auto"/>
+                <DataGridTextColumn Header="{x:Static loc:Strings.M_Person_Lieblingsfarbe}" Binding="{Binding Lieblingsfarbe}" Width="Auto">
                     <!--Mithilfe der CellStyle-Property können die Styles von Zellen angepasst werden-->
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
@@ -82,7 +95,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
-                <DataGridCheckBoxColumn Header="Verheiratet" Binding="{Binding Verheiratet}" Width="Auto"/>
+                <DataGridCheckBoxColumn Header="{x:Static loc:Strings.M_Person_Verheiratet}" Binding="{Binding Verheiratet}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>
